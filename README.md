@@ -20,6 +20,7 @@ Now for the task, Let me discuss the features in my files :
 	Also, the user is able to give certain title for each expense and should give a descriptive comment about each expense.
 
  ADVANCED TASKS :
+	
 	After logging in, the user is able to view a dashboard with four options, the fourth of which is..
 	 SETTLE - The user is now able to settle their dealing with other user, obviously if the current user enters a valid username and enters the amount, the same amount adds as an expense to the current user and the same amount gets deducted from total expense for other user.
 
