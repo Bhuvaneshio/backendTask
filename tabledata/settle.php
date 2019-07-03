@@ -34,6 +34,7 @@ echo '
 </pre>
 
 <form action="settle.php">
+    <input type="text" name="id" placeholder=" Transaction ID">
     <input type="text" name="name" placeholder=" To User">
     <input type="text" name="expense" placeholder=" Amount">
     <input type="text" name="comment" placeholder=" Description">
@@ -42,8 +43,9 @@ echo '
 
 <?php
 
-if( isset($_GET['name']) && isset($_GET['expense']) && isset($_GET['comment']) && isset($_GET['submit'])){
+if( isset($_GET['id']) && isset($_GET['name']) && isset($_GET['expense']) && isset($_GET['comment']) && isset($_GET['submit'])){
 
+    $id=$_GET['id'];
     $name=$_GET['name'];
     $exp=$_GET['expense'];
     $com=$_GET['comment'];
@@ -66,9 +68,9 @@ if( isset($_GET['name']) && isset($_GET['expense']) && isset($_GET['comment']) &
     }
     else{
     
-    $sql="INSERT INTO $uid (Firstname, Expense, Comment) VALUES ('$name',$exp,'$com')";
+    $sql="INSERT INTO expense (PersonId,user_uid,Firstname, Expense, Comment) VALUES ($id,'$uid','$name',$exp,'$com')";
     $exp1=-$exp;
-    $sql1="INSERT INTO $name (Firstname, Expense, Comment) VALUES ('$uid',$exp1,'$com')";
+    $sql1="INSERT INTO expense (PersonId,user_uid,Firstname, Expense, Comment) VALUES ($id,'$name','$uid',$exp1,'$com')";
 
     $query=mysqli_query($con,$sql);
     $query1=mysqli_query($con,$sql1);

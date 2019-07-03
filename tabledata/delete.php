@@ -36,16 +36,23 @@ echo '
 
 
 <form action="delete.php">
-    <br/><br/>
-    <input type="int" name="id" placeholder=" id">
+        <select name="action">
+            <option> *select criteria* </option>
+            <option> ID </option>
+            <option> NAME </option>
+        </select>
+    
+    <input type="int" name="value" placeholder=" value">
     <button type="submit" name="submit" value="given"> DELETE </button>
 </form>
 
 <?php
 
-if(isset($_GET['id'])){
+if(isset($_GET['value']) && isset($_GET['submit']) && isset($_GET['action'])){
 
-    $id=$_GET['id'];
+
+    $value=$_GET['value'];
+    $action=$_GET['action'];
 
     $host='localhost';
     $user='root';
@@ -57,31 +64,54 @@ if(isset($_GET['id'])){
 
     $con=mysqli_connect($host,$user,$pass,$db);
 
-    $stmt="SELECT * FROM $uid WHERE PersonId = $id";
-    $result=mysqli_query($con,$stmt);
-    $rowCheck=mysqli_num_rows($result);
-
-
-    if($rowCheck==0){
-        $check=false;        
+    switch($action){
+        case 'ID':  $stmt="SELECT * FROM expense WHERE PersonId = $value AND user_uid = '$uid'";
+                    $result=mysqli_query($con,$stmt);
+                    $rowCheck=mysqli_num_rows($result);
+                
+                
+                    if($rowCheck==0){
+                        $check=false;        
+                    }
+                
+                    if($check){
+                    $sql="DELETE FROM expense WHERE PersonId = $value AND user_uid = '$uid' ";
+                    $query=mysqli_query($con,$sql); }
+                    break;
+      case 'NAME':  $stmt="SELECT * FROM expense WHERE FirstName = '$value' AND user_uid = '$uid'";
+                    $result=mysqli_query($con,$stmt);
+                    $rowCheck=mysqli_num_rows($result);
+                
+                
+                    if($rowCheck==0){
+                        $check=false;        
+                    }
+                
+                    if($check){
+                    $sql="DELETE FROM expense WHERE FirstName = '$value' AND user_uid = '$uid' ";
+                    $query=mysqli_query($con,$sql);} 
+                    break;
+        case '*select criteria*':  
+                    header("Location: delete.php?error=notselected");
+                    echo " <pre>Please select something..<pre/>";
+                    break;
     }
 
-    if($check){
-    $sql="DELETE FROM $uid WHERE PersonId = $id";
-    $query=mysqli_query($con,$sql);
-
-    if($query){
-        echo "<br/>Deletion success";
-    }
-    else
-        echo "<br/>Deletion failure";
+    
+    if(empty($query)){
+        echo "<br/> Deletion failure";
     }
     else{
-        echo "<br/> Deletion failure";
-        echo "<br/> Enter only valid id<br/>";
-        echo "<pre> You can check existing id's in the view tab<pre/>";
+        if($query){
+            echo "<br/>Deletion success";
+        }
+        
+        else{
+            echo "<br/> Deletion failure";
+            echo "<br/> Enter only valid value<br/>";
+            echo "<pre> You can check existing id's in the view tab<pre/>";
+        }
     }
-
 
 }
 

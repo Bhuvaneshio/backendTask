@@ -11,6 +11,9 @@
 <body>
 
 <?php   include_once 'header.php'; 
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
 if(isset($_SESSION['u_id']))
 if($_SESSION['u_id']==true)
     echo "<br/>Current / Previous User : '".$_SESSION['u_id']."'";

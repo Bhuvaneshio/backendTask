@@ -57,13 +57,27 @@ if(isset($_GET['id']) && isset($_GET['name']) && isset($_GET['id']) && isset($_G
     $uid=$_SESSION['u_id'];
 
     $con=mysqli_connect($host,$user,$pass,$db);
-    $sql="INSERT INTO $uid (PersonId, Firstname, Expense, Comment) VALUES ($id,'$name',$exp,'$com')";
+
+    $stmt="SELECT COUNT(PersonId) FROM expense GROUP BY user_uid HAVING COUNT(PersonId)>1";
+    $result=mysqli_query($con,$stmt);
+    $rowCheck=mysqli_num_rows($result);
+
+    if($rowCheck == 1){
+    
+    //change personid into non primary or column which allows duplicate values..
+
+    $sql="INSERT INTO expense (PersonId, user_uid, Firstname, Expense, Comment) VALUES ($id,'$uid','$name',$exp,'$com')";
     
     $query=mysqli_query($con,$sql);
     if($query)
         echo "<br/> Inserted success<br/>";
     else
         echo "<br/> Insertion failure<br/>";
+    }
+
+    else {
+        echo "<br/> Invalid ID <br/>";
+    }
 }
     
 else{

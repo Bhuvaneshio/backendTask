@@ -74,12 +74,17 @@ if(isset($_GET['submit']) && isset($_GET['action']) && isset($_GET['order'])){
     case 'NAME':    
         $con=mysqli_connect($host,$user,$pass,$db);
         $uid=$_SESSION['u_id'];
-        $stmt = $con->prepare("SELECT * FROM $uid ORDER BY FirstName $order");
+        $stmt = $con->prepare("SELECT * FROM expense WHERE user_uid = '$uid' ORDER BY FirstName $order");
         $stmt->execute();
-        $stmt->bind_result($PersonId, $FirstName,$Expense,$Comment);
+        $stmt->bind_result($PersonId,$Username,$FirstName,$Expense,$Comment);
+                   
+        echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
+        echo "<tr> <th>".$uid."'s Expense List </th></tr></table>";
+
         echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
         echo "<tr> <th> ID </th> <th> Name </th> <th> Expense </th><th> Comments </th></tr>";
         while($stmt->fetch()){
+            
             echo '<tr><td style="text-align:center;border:1px solid black;">';
             echo $PersonId;
             echo "</td><td style='text-align:center;border:1px solid black;'>";
@@ -88,7 +93,7 @@ if(isset($_GET['submit']) && isset($_GET['action']) && isset($_GET['order'])){
             echo $Expense;
             echo "</td><td style='text-align:center;border:1px solid black;'>";
             echo $Comment;
-            echo "</td></tr>";
+            echo "</td></tr>";        
 
             $total=$total+$Expense;
         }
@@ -105,9 +110,13 @@ if(isset($_GET['submit']) && isset($_GET['action']) && isset($_GET['order'])){
     case 'ID':    
         $con=mysqli_connect($host,$user,$pass,$db);
         $uid=$_SESSION['u_id'];
-        $stmt = $con->prepare("SELECT * FROM $uid ORDER BY PersonId $order");
+        $stmt = $con->prepare("SELECT * FROM expense WHERE user_uid = '$uid' ORDER BY PersonId $order");
         $stmt->execute();
-        $stmt->bind_result($PersonId, $FirstName,$Expense,$Comment);
+        $stmt->bind_result($PersonId,$Username,$FirstName,$Expense,$Comment);
+                    
+        echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
+        echo "<tr> <th>".$uid."'s Expense List </th></tr></table>";
+
         echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
         echo "<tr> <th> ID </th> <th> Name </th> <th> Expense </th><th> Comments </th></tr>";
         while($stmt->fetch()){
@@ -137,9 +146,13 @@ if(isset($_GET['submit']) && isset($_GET['action']) && isset($_GET['order'])){
             
         $con=mysqli_connect($host,$user,$pass,$db);
         $uid=$_SESSION['u_id'];
-        $stmt = $con->prepare("SELECT * FROM $uid ORDER BY Expense $order");
+        $stmt = $con->prepare("SELECT * FROM expense WHERE user_uid = '$uid' ORDER BY Expense $order");
         $stmt->execute();
-        $stmt->bind_result($PersonId, $FirstName,$Expense,$Comment);
+        $stmt->bind_result($PersonId,$Username,$FirstName,$Expense,$Comment);
+                    
+        echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
+        echo "<tr> <th>".$uid."'s Expense List </th></tr></table>";
+
         echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
         echo "<tr> <th> ID </th> <th> Name </th> <th> Expense </th><th> Comments </th></tr>";
         while($stmt->fetch()){
@@ -169,9 +182,13 @@ if(isset($_GET['submit']) && isset($_GET['action']) && isset($_GET['order'])){
             
         $con=mysqli_connect($host,$user,$pass,$db);
         $uid=$_SESSION['u_id'];
-        $stmt = $con->prepare("SELECT * FROM $uid ORDER BY Comment $order");
+        $stmt = $con->prepare("SELECT * FROM expense WHERE user_uid = '$uid' ORDER BY Comment $order");
         $stmt->execute();
-        $stmt->bind_result($PersonId, $FirstName,$Expense,$Comment);
+        $stmt->bind_result($PersonId,$Username,$FirstName,$Expense,$Comment);
+                    
+        echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
+        echo "<tr> <th>".$uid."'s Expense List </th></tr></table>";
+
         echo '<table style="width:100%;border:1px solid black;border-collapse:collapse;">';
         echo "<tr> <th> ID </th> <th> Name </th> <th> Expense </th><th> Comments </th></tr>";
         while($stmt->fetch()){

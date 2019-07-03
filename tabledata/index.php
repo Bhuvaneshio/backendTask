@@ -32,7 +32,14 @@ echo '
     <li> <a href="settle.php">&nbsp SETTLE &nbsp</a></li>
 </ul>
 </section>
+<br/>
+<section style="text-align:center;">
+    <p>Welcome to the DashBoard of expenses</p>
+    <p>press any one of the tabs above</p>
+    <p>START SAVING, BTW..!</p>
+</section>
 ';
+/*
 if(isset($_GET['user'])){
     
 $sql="CREATE TABLE $uid ( PersonId int AUTO_INCREMENT, FirstName varchar(255), Expense int(20), Comment varchar(255), PRIMARY KEY(PersonId)) ";
@@ -41,5 +48,5 @@ $query=mysqli_query($con,$sql);
 echo "<br/><br/><br/>";
 if($query) echo "table created..";
 }
-
+*/
 ?>
